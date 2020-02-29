@@ -22,4 +22,8 @@ class Cart
   def total_price
     items.reduce(0) {|sum, item| sum + item.price}
   end
+
+  def total_price_after_promotion(promotion)
+    promotion.call(total_price)
+  end
 end

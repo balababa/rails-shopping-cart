@@ -45,7 +45,25 @@ RSpec.describe Cart, type: :model do
       expect(cart.total_price).to be 430
     end
 
-    it "特別活動可能可搭配折扣（例如聖誕節的時候全面打 9 折，或是滿額滿千送百）"
+    it "特別活動可能可搭配折扣（例如聖誕節的時候全面打 9 折，或是滿額滿千送百）" do
+      cart = Cart.new
+
+      p1 = Product.create(title:"prodcut_1", price: 120)
+      p2 = Product.create(title:"prodcut_2", price: 80)
+      p3 = Product.create(title:"product_3", price: 200)
+
+      5.times do
+      cart.add_item(p1.id)
+      cart.add_item(p2.id) 
+      cart.add_item(p3.id)
+      end
+
+      twenty_percent_off = lambda { |total_price| (total_price * 0.8).ceil }
+      discount_100_per_1000 = ->(x) {x - (x / 1000) * 100}
+
+      expect(cart.total_price_after_promotion(twenty_percent_off)).to be 1600
+      expect(cart.total_price_after_promotion(discount_100_per_1000)).to be 1800
+    end
   end
 
   describe "購物車進階功能" do 
