@@ -1,16 +1,20 @@
 class CartItem
   attr_reader :quantity, :product_id
 
-  def initialize(product_id)
+  def initialize(product_id, quantity = 1)
     @product_id = product_id
-    @quantity = 1
+    @quantity = quantity
   end
 
-  def increment
-    @quantity += 1
+  def increment(n = 1)
+    @quantity += n
   end
 
   def product
     Product.find_by(id: product_id)
+  end
+
+  def price
+    product.price * quantity
   end
 end
