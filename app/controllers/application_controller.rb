@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
   include CartsHelper #current_cart in helper
   private
   def init_cart
-    @cart = Cart.from_hash(session[:cart9487])
+    @cart = Cart.from_hash(session[:cart0001])
   end
 end
