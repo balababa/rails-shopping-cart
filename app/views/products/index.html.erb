@@ -1,0 +1,22 @@
+<h1>Products</h1>
+
+<%= link_to "新增產品", new_product_path %>
+<table class = "table">
+  <thead>
+    <tr>
+      <td>產品名稱</td>
+      <td>產品敘述</td>
+      <td>產品價格</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.title %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+ 
+</table>
