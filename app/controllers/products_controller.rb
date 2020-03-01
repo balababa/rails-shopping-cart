@@ -17,6 +17,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  def edit
+    find_product
+  end
+
   def destroy
     find_product
     @product.destroy if @product
