@@ -21,6 +21,15 @@ class ProductsController < ApplicationController
     find_product
   end
 
+    def update
+    find_product
+    if @product.update(product_params)
+      redirect_to products_path, notice: "商品資訊更新成功"
+    else
+      render :edit
+    end
+  end
+
   def destroy
     find_product
     @product.destroy if @product
