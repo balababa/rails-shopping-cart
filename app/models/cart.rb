@@ -26,4 +26,13 @@ class Cart
   def total_price_after_promotion(promotion)
     promotion.call(total_price)
   end
+
+  def serialize
+    # {"items" => items.map {|item| {"product_id" => item.product_id, "quantity" => item.quantity}} }
+    all_items = items.map { |item|
+      { "product_id" => item.product_id, "quantity" => item.quantity}
+    }
+
+    { "items" => all_items }
+  end
 end
