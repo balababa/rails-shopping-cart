@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :find_product, only: [:edit, :update, :destroy]
+
   def index
     @products = Product.all
   end
@@ -18,11 +20,9 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    find_product
   end
 
     def update
-    find_product
     if @product.update(product_params)
       redirect_to products_path, notice: "商品資訊更新成功"
     else
@@ -31,7 +31,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    find_product
     @product.destroy if @product
     redirect_to products_path, notice: "商品刪除成功"
   end

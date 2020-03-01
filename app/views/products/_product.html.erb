@@ -1,0 +1,6 @@
+<tr>
+  <td><%= product.title %></td>
+  <td><%= product.description %></td>
+  <td><%= product.price %></td>
+  <td><%= link_to "更新", edit_product_path(product.id) %> <%= link_to "刪除", product_path(product.id), method: :delete, data: {confirm: "是否刪除商品#{product.title}"} %></td>
+</tr>

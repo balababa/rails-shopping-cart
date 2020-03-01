@@ -1,13 +1,6 @@
 <h1>修改商品</h1>
 
-<%= simple_form_for @product do |f| %>
-
-  <%= f.input :title, label: "名稱" %>
-  <%= f.input :description, label: "敘述" %>
-  <%= f.input :price, label: "價格" %>
-
-  <%= f.submit %>
-<% end %>
+<%= render "form", product: @product %>
 
 <br>
 <%= link_to "回前一頁", products_path %>
