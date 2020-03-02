@@ -1,0 +1,7 @@
+<tr>
+  <td><%= link_to "刪除", delete_item_cart_path(item.product_id), method: :post, class: "btn btn-default btn-danger"  %></td>
+  <td><%= item.product.title %></td>
+  <td><%= item.quantity %></td>
+  <td><%= item.product.price %></td>
+  <td><%= item.price %></td>
+</tr>

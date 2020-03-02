@@ -6,9 +6,9 @@ class Cart
   end
 
   def add_item(product_id)
-    item_found = items.find {|item| item.product_id == product_id }
+    item_found = items.find {|item| item.product_id == product_id}
     
-    if item_found 
+    if item_found
       item_found.increment
     else
       items << CartItem.new(product_id)
@@ -42,5 +42,9 @@ class Cart
     else
       new hash["items"].map {|item| CartItem.new(item["product_id"], item["quantity"])}
     end
+  end
+
+  def delete_item(product_id)
+    items.delete_if {|item| item.product_id == product_id }
   end
 end
