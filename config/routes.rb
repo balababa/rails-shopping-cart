@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     #   post :add, path: 'add/:id'
     # end
     post :delete_item, path: 'delete/:id', on: :collection
+    post :change_num, path: 'change/:id/:symbol', on: :collection 
     post :add, path: 'add/:id', on: :collection
   end
 end

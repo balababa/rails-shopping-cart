@@ -9,7 +9,7 @@ class Cart
     item_found = items.find {|item| item.product_id == product_id}
     
     if item_found
-      item_found.increment
+      item_found.calculate(&:+)
     else
       items << CartItem.new(product_id)
     end
@@ -46,5 +46,13 @@ class Cart
 
   def delete_item(product_id)
     items.delete_if {|item| item.product_id == product_id }
+  end
+
+  def find_item(product_id)
+    items.find {|item| item.product_id == product_id }
+  end
+
+  def delete_zero
+    items.delete_if {|item| item.quantity.zero? }
   end
 end

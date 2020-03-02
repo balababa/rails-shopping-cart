@@ -7,8 +7,9 @@ class CartItem
     @quantity = quantity
   end
 
-  def increment(n = 1)
-    @quantity += n
+  def calculate(n = 1, &symbol)
+    rlt = symbol.call(quantity, n)
+    @quantity = rlt < 0 ? 0 : rlt
   end
 
   def product

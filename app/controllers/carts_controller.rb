@@ -19,11 +19,16 @@ class CartsController < ApplicationController
   end
 
   def delete_item
-
     @cart.delete_item params[:id]
     session[:cart0001] = @cart.serialize
 
-
     redirect_to cart_path, notice: "商品已刪除"
+  end
+
+  def change_num
+    @cart.find_item(params[:id]).calculate(&params[:symbol].to_sym)
+    session[:cart0001] = @cart.serialize
+
+    redirect_to cart_path
   end
 end
