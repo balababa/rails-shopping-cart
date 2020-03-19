@@ -1,0 +1,52 @@
+<h1>購物車</h1>
+
+<%= link_to "回上一頁", cart_path, class: "btn btn-default btn-danger" %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <td></td>
+      <td>商品名稱</td>
+      <td>數量</td>
+      <td>單價</td>
+      <td>小計</td>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial:"payItem", collection: @cart.items, as: :item %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4">總計</td>
+      <td><%= @cart.total_price %></td>
+    </tr>
+  </tfoot>
+</table>
+
+<%= form_with(url: pay_cart_path,id: "card_number") do |form| %>
+  <%= form.hidden_field :nonce %>
+  <div id="dropin-container"></div>
+  <button id="submit-button" class="btn btn-default">確定付款</button>
+<% end %>
+
+
+<script src="https://js.braintreegateway.com/web/dropin/1.22.1/js/dropin.min.js"></script>
+<script>
+  document.addEventListener("turbolinks:load", function(event) {
+    var button = document.querySelector('#submit-button');
+    let form = document.querySelector('#card_number');
+  braintree.dropin.create({
+    authorization: '<%= @token %>',
+    container: '#dropin-container'
+  }, function (createErr, instance) {
+    button.addEventListener('click', function (event) {
+      event.preventDefault()
+      instance.requestPaymentMethod(function (err, payload) {
+        document.querySelector('input[name="nonce"]').value = payload.nonce;
+        form.submit()
+      });
+    });
+  });
+  })
+</script>
+

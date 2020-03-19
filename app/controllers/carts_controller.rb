@@ -31,4 +31,36 @@ class CartsController < ApplicationController
 
     redirect_to cart_path
   end
+
+  def payment
+    @token = gateway.client_token.generate()
+
+  end
+
+  def pay
+    result = gateway.transaction.sale(
+  amount:  "#{@cart.total_price}",
+  payment_method_nonce:  params[:nonce],
+  options: {
+    submit_for_settlement:  true
+  }
+)
+
+if result.success?
+  session[Cart::SessionKey] = nil
+  redirect_to products_path, notice: "付款成功"
+else
+  redirect_to products_path, notice: "付款失敗"
+end
+  end
+
+  private
+  def gateway
+    Braintree::Gateway.new(
+      environment:  :sandbox,
+      merchant_id:  ENV['merchant_id'],
+      public_key:  ENV['public_key'],
+      private_key: ENV['private_key'],
+    )
+  end
 end

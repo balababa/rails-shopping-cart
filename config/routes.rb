@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     post :delete_item, path: 'delete/:id', on: :collection
     post :change_num, path: 'change/:id/:symbol', on: :collection 
     post :add, path: 'add/:id', on: :collection
+    get :payment, on: :collection
+    post :pay
   end
 
   root 'products#index'
