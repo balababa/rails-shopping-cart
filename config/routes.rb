@@ -10,4 +10,6 @@ Rails.application.routes.draw do
     post :change_num, path: 'change/:id/:symbol', on: :collection 
     post :add, path: 'add/:id', on: :collection
   end
+
+  root 'products#index'
 end
