@@ -15,7 +15,7 @@ class CartsController < ApplicationController
 
   def destroy
     session[Cart::SessionKey] = nil
-    redirect_to cart_path, notice: "已清空購物車"
+    redirect_to products_path, notice: "已清空購物車"
   end
 
   def delete_item
@@ -33,8 +33,9 @@ class CartsController < ApplicationController
   end
 
   def payment
-    @token = gateway.client_token.generate()
+    redirect_to cart_path, notice: "購物車為空" if @cart.empty?
 
+    @token = gateway.client_token.generate()
   end
 
   def pay

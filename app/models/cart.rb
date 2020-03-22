@@ -17,7 +17,7 @@ class Cart
   end
 
   def empty?
-    items.empty?
+    items.empty? || items.all? {|item| item.quantity.zero? } 
   end
 
   def total_price
